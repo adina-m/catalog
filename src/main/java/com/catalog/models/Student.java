@@ -8,7 +8,6 @@ public class Student {
     private String nume;
     private String grupa;
     private Integer an_studii;
-    private List<Examen> listaExamene;
 
     public Integer getStudent_id() {
         return student_id;
@@ -40,13 +39,5 @@ public class Student {
 
     public void setAn_studii(Integer an_studii) {
         this.an_studii = an_studii;
-    }
-
-    public List<Examen> getListaExamene() {
-        return listaExamene;
-    }
-
-    public void setListaExamene(List<Examen> listaExamene) {
-        this.listaExamene = listaExamene;
     }
 }
