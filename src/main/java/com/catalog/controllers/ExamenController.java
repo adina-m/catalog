@@ -1,10 +1,8 @@
 package com.catalog.controllers;
 
 import com.catalog.models.Examen;
-import com.catalog.services.ExamenServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.catalog.services.ExamenService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,14 +10,24 @@ import java.util.List;
 @RequestMapping("/examen")
 public class ExamenController {
 
-    private final ExamenServiceImpl examenService;
+    private final ExamenService examenService;
 
-    public ExamenController(ExamenServiceImpl examenService) {
+    public ExamenController(ExamenService examenService) {
         this.examenService = examenService;
     }
 
     @GetMapping
     public List<Examen> getAll() {
         return examenService.getAll();
+    }
+
+    @PostMapping
+    public void save(@RequestBody Examen examen) {
+        examenService.save(examen);
+    }
+
+    @GetMapping("/{id}")
+    public Examen findById(@PathVariable int id) {
+        return examenService.findById(id);
     }
 }

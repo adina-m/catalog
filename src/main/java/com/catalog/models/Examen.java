@@ -11,7 +11,6 @@ public class Examen {
     private String nume_profesor;
     private Date data_examen;
     private String sala;
-    private List<NotaExamen> notaExamen;
 
     public Integer getExamen_id() {
         return examen_id;
@@ -59,13 +58,5 @@ public class Examen {
 
     public void setSala(String sala) {
         this.sala = sala;
-    }
-
-    public List<NotaExamen> getNotaExamen() {
-        return notaExamen;
-    }
-
-    public void setNotaExamen(List<NotaExamen> notaExamen) {
-        this.notaExamen = notaExamen;
     }
 }

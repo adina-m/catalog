@@ -1,10 +1,8 @@
 package com.catalog.controllers;
 
 import com.catalog.models.Student;
-import com.catalog.services.StudentServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.catalog.services.StudentService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,14 +10,30 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
 
-    private final StudentServiceImpl studentService;
+    private final StudentService studentService;
 
-    public StudentController(StudentServiceImpl studentService) {
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @GetMapping
     public List<Student> getAll() {
         return studentService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Student findById(@PathVariable int id) {
+        Student student = studentService.findById(id);
+
+        if (student == null) {
+            throw new RuntimeException("Student id not found: " + id);
+        }
+
+        return student;
+    }
+
+    @PostMapping
+    public void save(@RequestBody Student student) {
+        studentService.save(student);
     }
 }

@@ -22,11 +22,11 @@ public class ExamenServiceImpl implements ExamenService{
 
     @Override
     public Examen findById(int id) {
-        return null;
+        return examenRepository.findById(id);
     }
 
     @Override
     public void save(Examen examen) {
-
+        examenRepository.save(examen);
     }
 }
