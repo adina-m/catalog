@@ -1,43 +1,53 @@
 package com.catalog.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
 
-    private Integer student_id;
-    private String nume;
-    private String grupa;
-    private Integer an_studii;
+    private Integer id;
+    private String name;
+    private String studentGroup;
+    private Integer academicYear;
+    private List<Grade> grades = new ArrayList<>();
 
-    public Integer getStudent_id() {
-        return student_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setStudent_id(Integer student_id) {
-        this.student_id = student_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNume() {
-        return nume;
+    public String getName() {
+        return name;
     }
 
-    public void setNume(String nume) {
-        this.nume = nume;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGrupa() {
-        return grupa;
+    public String getStudentGroup() {
+        return studentGroup;
     }
 
-    public void setGrupa(String grupa) {
-        this.grupa = grupa;
+    public void setStudentGroup(String studentGroup) {
+        this.studentGroup = studentGroup;
     }
 
-    public Integer getAn_studii() {
-        return an_studii;
+    public Integer getAcademicYear() {
+        return academicYear;
     }
 
-    public void setAn_studii(Integer an_studii) {
-        this.an_studii = an_studii;
+    public void setAcademicYear(Integer academicYear) {
+        this.academicYear = academicYear;
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
     }
 }

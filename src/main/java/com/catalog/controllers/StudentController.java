@@ -21,6 +21,11 @@ public class StudentController {
         return studentService.getAll();
     }
 
+    @GetMapping("/details")
+    public List<Student> getStudentsDetails() {
+        return studentService.getStudentsDetails();
+    }
+
     @GetMapping("/{id}")
     public Student findById(@PathVariable int id) {
         Student student = studentService.findById(id);

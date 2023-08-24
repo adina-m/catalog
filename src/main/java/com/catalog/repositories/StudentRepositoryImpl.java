@@ -1,37 +1,50 @@
 package com.catalog.repositories;
 
+import com.catalog.MyBatisSqlSessionFactory;
 import com.catalog.models.Student;
-import com.catalog.repositories.mappers.StudentRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
 public class StudentRepositoryImpl implements StudentRepository{
 
-    private final JdbcTemplate jdbc;
-
-    public StudentRepositoryImpl(JdbcTemplate jdbc) {
-        this.jdbc = jdbc;
+    @Override
+    public List<Student> getAll() {
+        try (SqlSession session = MyBatisSqlSessionFactory.openSession()) {
+            List<Student> students = session.selectList("getAll");
+            session.commit();
+            session.close();
+            return students;
+        }
     }
 
-    public List<Student> getAll() {
-        String sql = "select * from student";
-
-        return jdbc.query(sql, new StudentRowMapper());
+    @Override
+    public List<Student> getStudentsDetails() {
+        try (SqlSession session = MyBatisSqlSessionFactory.openSession()) {
+            List<Student> students = session.selectList("getStudentsDetails");
+            session.commit();
+            session.close();
+            return students;
+        }
     }
 
     @Override
     public Student findById(int id) {
-        String sql = "select * from student where student_id = ?";
-
-        return jdbc.queryForObject(sql, new StudentRowMapper(), id);
+        try (SqlSession session = MyBatisSqlSessionFactory.openSession()) {
+            Student student = session.selectOne("findById", id);
+            session.commit();
+            session.close();
+            return student;
+        }
     }
 
     @Override
     public void save(Student student) {
-        String sql = "insert into student(nume, grupa, an_studii) values(?,?,?)";
-
-        jdbc.update(sql, student.getNume(), student.getGrupa(), student.getAn_studii());
+        try (SqlSession session = MyBatisSqlSessionFactory.openSession()) {
+            session.insert("save", student);
+            session.commit();
+            session.close();
+        }
     }
 }
