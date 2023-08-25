@@ -15,4 +15,8 @@ public interface StudentRepository {
     public Student findById(int id);
 
     public void save(Student student);
+
+    public void update(Student student);
+
+    public void deleteById(int id);
 }

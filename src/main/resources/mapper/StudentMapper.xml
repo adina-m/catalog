@@ -46,4 +46,12 @@
     <insert id="save" parameterType="Student" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO student (name, student_group, academic_year) VALUES(#{name}, #{studentGroup}, #{academicYear})
     </insert>
+
+    <update id="update" parameterType="Student">
+        UPDATE student SET name = #{name}, student_group = #{studentGroup}, academic_year = #{academicYear} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM student WHERE  id = #{id}
+    </delete>
 </mapper>
