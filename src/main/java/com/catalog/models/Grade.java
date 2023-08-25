@@ -5,8 +5,8 @@ public class Grade {
     private Integer examId;
     private Integer studentId;
     private Integer grade;
-
     private Exam exam;
+    private Student student;
 
     public Integer getExamId() {
         return examId;
@@ -38,5 +38,13 @@ public class Grade {
 
     public void setExam(Exam exam) {
         this.exam = exam;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

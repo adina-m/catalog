@@ -13,6 +13,8 @@ public class Exam {
     private Date examDate;
     private String classroom;
 
+    private List<Grade> grades = new ArrayList<>();
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class Exam {
 
     public void setClassroom(String classroom) {
         this.classroom = classroom;
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
     }
 }

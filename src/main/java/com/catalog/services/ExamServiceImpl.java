@@ -21,6 +21,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public List<Exam> getExamsDetails() {
+        return examRepository.getExamsDetails();
+    }
+
+    @Override
     public Exam findById(int id) {
         return examRepository.findById(id);
     }
@@ -28,5 +33,15 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public void save(Exam exam) {
         examRepository.save(exam);
+    }
+
+    @Override
+    public void update(Exam exam) {
+        examRepository.update(exam);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        examRepository.deleteById(id);
     }
 }

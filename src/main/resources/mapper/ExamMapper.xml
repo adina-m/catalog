@@ -3,4 +3,58 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.catalog.repositories.ExamRepository">
+    <resultMap id="examResultMap" type="Exam">
+        <id property="id" column="id" />
+        <result property="className" column="class" />
+        <result property="course" column="course" />
+        <result property="professorName" column="professor_name" />
+        <result property="examDate" column="exam_date" />
+        <result property="classroom" column="classroom" />
+    </resultMap>
+
+    <resultMap id="examDetailsResultMap" type="Exam">
+        <id property="id" column="id" />
+        <result property="className" column="class" />
+        <result property="course" column="course" />
+        <result property="professorName" column="professor_name" />
+        <result property="examDate" column="exam_date" />
+        <result property="classroom" column="classroom" />
+        <collection property="grades" javaType="ArrayList" ofType="grade">
+            <result property="grade" column="grade"/>
+
+            <association property="student" javaType="Student">
+                <id property="id" column="id"/>
+                <result property="name" column="name" />
+                <result property="studentGroup" column="student_group" />
+                <result property="academicYear" column="academic_year" />
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="getAll" resultMap="examResultMap" resultType="Exam">
+        SELECT * FROM exam
+    </select>
+
+    <select id="getExamsDetails" resultMap="examDetailsResultMap" resultType="Exam">
+        SELECT * FROM exam e
+        LEFT JOIN grade g ON g.exam_id = e.id
+        LEFT JOIN student s ON s.id = g.student_id
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="examResultMap" resultType="Exam">
+        SELECT * FROM exam WHERE id = #{id}
+    </select>
+
+    <insert id="save" parameterType="Exam" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO exam (class, course, professor_name, exam_date, classroom) VALUES(#{className}, #{course}, #{professorName}, #{examDate}, #{classroom})
+    </insert>
+
+    <update id="update" parameterType="exam">
+        UPDATE exam SET class = #{className}, course = #{course}, professor_name = #{professorName}, exam_date = #{examDate}, classroom = #{classroom}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM exam WHERE id = #{id}
+    </delete>
 </mapper>

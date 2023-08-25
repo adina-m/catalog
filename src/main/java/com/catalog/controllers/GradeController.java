@@ -7,18 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/nota-examen")
+@RequestMapping("/grade")
 public class GradeController {
 
     private final GradeService gradeService;
 
     public GradeController(GradeService gradeService) {
         this.gradeService = gradeService;
-    }
-
-    @GetMapping
-    public List<Grade> getAll() {
-        return gradeService.getAll();
     }
 
     @PostMapping

@@ -1,12 +1,13 @@
 package com.catalog.repositories;
 
 import com.catalog.models.Grade;
+import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
+@Mapper
 public interface GradeRepository {
 
-    public List<Grade> getAll();
-
     public void save(Grade grade);
+
+    public void deleteByExamId(int id);
+    public void deleteByStudentId(int id);
 }

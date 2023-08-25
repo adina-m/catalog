@@ -16,11 +16,6 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
-    public List<Grade> getAll() {
-        return gradeRepository.getAll();
-    }
-
-    @Override
     public void save(Grade grade) {
         gradeRepository.save(grade);
     }
