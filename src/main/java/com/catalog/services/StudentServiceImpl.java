@@ -21,6 +21,11 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public List<Student> getStudentsDetails() {
+        return studentRepository.getStudentsDetails();
+    }
+
+    @Override
     public Student findById(int id) {
         return studentRepository.findById(id);
     }
@@ -28,5 +33,15 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void save(Student student) {
         studentRepository.save(student);
+    }
+
+    @Override
+    public void update(Student student) {
+        studentRepository.update(student);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        studentRepository.deleteById(id);
     }
 }

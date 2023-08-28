@@ -21,6 +21,11 @@ public class StudentController {
         return studentService.getAll();
     }
 
+    @GetMapping("/details")
+    public List<Student> getStudentsDetails() {
+        return studentService.getStudentsDetails();
+    }
+
     @GetMapping("/{id}")
     public Student findById(@PathVariable int id) {
         Student student = studentService.findById(id);
@@ -34,6 +39,15 @@ public class StudentController {
 
     @PostMapping
     public void save(@RequestBody Student student) {
-        studentService.save(student);
+        if (student.getId() == null) {
+            studentService.save(student);
+        } else {
+            studentService.update(student);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable int id) {
+        studentService.deleteById(id);
     }
 }
