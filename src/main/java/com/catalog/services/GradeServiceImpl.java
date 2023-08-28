@@ -19,4 +19,9 @@ public class GradeServiceImpl implements GradeService {
     public void save(Grade grade) {
         gradeRepository.save(grade);
     }
+
+    @Override
+    public void deleteByExamAndStudentIds(int examId, int studentId) {
+        gradeRepository.deleteByExamAndStudentIds(examId, studentId);
+    }
 }

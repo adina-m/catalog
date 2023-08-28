@@ -6,4 +6,8 @@
     <insert id="save" parameterType="Grade">
         INSERT INTO grade (exam_id, student_id, grade) VALUES(#{examId}, #{studentId}, #{grade})
     </insert>
+
+    <delete id="deleteByExamAndStudentIds" parameterType="int">
+        DELETE FROM grade WHERE exam_id = #{examId} AND student_id = #{studentId}
+    </delete>
 </mapper>

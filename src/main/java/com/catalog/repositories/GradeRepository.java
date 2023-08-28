@@ -8,6 +8,8 @@ public interface GradeRepository {
 
     public void save(Grade grade);
 
+    public void deleteByExamAndStudentIds(int examId, int studentId);
+
     public void deleteByExamId(int id);
     public void deleteByStudentId(int id);
 }

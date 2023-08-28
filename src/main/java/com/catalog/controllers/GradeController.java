@@ -20,4 +20,9 @@ public class GradeController {
     public void save(@RequestBody Grade grade) {
         gradeService.save(grade);
     }
+
+    @DeleteMapping
+    public void deleteByExamAndStudentIds(@RequestBody Grade grade) {
+        gradeService.deleteByExamAndStudentIds(grade.getExamId(), grade.getStudentId());
+    }
 }
