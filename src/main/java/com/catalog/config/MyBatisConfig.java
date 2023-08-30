@@ -25,12 +25,18 @@ public class MyBatisConfig {
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(@Qualifier("DS") DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        sessionFactory.setTypeAliasesPackage("com.catalog.models");
-        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
+        SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
+        sessionFactoryBean.setDataSource(dataSource);
+        sessionFactoryBean.setTypeAliasesPackage("com.catalog.models");
+        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
 
-        return sessionFactory.getObject();
+//        return sessionFactoryBean.getObject();
+        SqlSessionFactory sessionFactory = sessionFactoryBean.getObject();
+        if (sessionFactory != null) {
+            sessionFactory.getConfiguration().setMapUnderscoreToCamelCase(true);
+        }
+
+        return sessionFactory;
     }
 
     @Bean
