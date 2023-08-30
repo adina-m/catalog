@@ -1,5 +1,7 @@
 package com.catalog.controllers;
 
+import com.catalog.apimodel.GradeDTO;
+import com.catalog.mappers.GradeMapper;
 import com.catalog.models.Grade;
 import com.catalog.services.GradeService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,8 @@ public class GradeController {
     }
 
     @PostMapping
-    public void save(@RequestBody Grade grade) {
+    public void save(@RequestBody GradeDTO gradeDTO) {
+        Grade grade = GradeMapper.INSTANCE.gradeDTOtoGrade(gradeDTO);
         gradeService.save(grade);
     }
 

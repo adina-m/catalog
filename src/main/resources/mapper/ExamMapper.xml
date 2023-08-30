@@ -4,12 +4,12 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.catalog.repositories.ExamRepository">
     <resultMap id="examResultMap" type="Exam">
-        <id property="id" column="id" />
+<!--        <id property="id" column="id" />-->
         <result property="className" column="class" />
-        <result property="course" column="course" />
-        <result property="professorName" column="professor_name" />
-        <result property="examDate" column="exam_date" />
-        <result property="classroom" column="classroom" />
+<!--        <result property="course" column="course" />-->
+<!--        <result property="professorName" column="professor_name" />-->
+<!--        <result property="examDate" column="exam_date" />-->
+<!--        <result property="classroom" column="classroom" />-->
     </resultMap>
 
     <resultMap id="examDetailsResultMap" type="Exam">
