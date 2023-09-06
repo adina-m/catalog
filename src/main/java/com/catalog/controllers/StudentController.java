@@ -1,22 +1,29 @@
 package com.catalog.controllers;
 
 import com.catalog.apimodel.StudentDTO;
+import com.catalog.apiresponse.ApiResponse;
 import com.catalog.mappers.StudentMapper;
 import com.catalog.models.Student;
 import com.catalog.services.StudentService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping(value= "/student",
+                produces = MediaType.APPLICATION_JSON_VALUE,
+                consumes = MediaType.APPLICATION_JSON_VALUE)
 public class StudentController {
 
     private final StudentService studentService;
+    private final RabbitTemplate rabbitTemplate;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, RabbitTemplate rabbitTemplate) {
         this.studentService = studentService;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @GetMapping
@@ -44,13 +51,15 @@ public class StudentController {
     }
 
     @PostMapping
-    public void save(@RequestBody StudentDTO studentDTO) {
-        Student student = StudentMapper.INSTANCE.studentDTOtoStudent(studentDTO);
-        if (student.getId() == null) {
-            studentService.save(student);
-        } else {
-            studentService.update(student);
-        }
+    public ApiResponse save(@RequestBody StudentDTO studentDTO) {
+        rabbitTemplate.convertAndSend("", "q.student-creation", studentDTO);
+        return new ApiResponse("saved");
+    }
+
+    @PutMapping
+    public ApiResponse update(@RequestBody StudentDTO studentDTO) {
+        rabbitTemplate.convertAndSend("", "q.student-update", studentDTO);
+        return new ApiResponse("updated");
     }
 
     @DeleteMapping("/{id}")
