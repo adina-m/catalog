@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class StudentCreateListener {
+public class StudentListener {
     private final StudentService studentService;
 
-    public StudentCreateListener(StudentService studentService) {
+    public StudentListener(StudentService studentService) {
         this.studentService = studentService;
     }
 

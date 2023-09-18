@@ -6,16 +6,13 @@ import com.catalog.mappers.StudentMapper;
 import com.catalog.models.Student;
 import com.catalog.services.StudentService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value= "/student",
-                produces = MediaType.APPLICATION_JSON_VALUE,
-                consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value= "/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -27,16 +24,23 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<StudentDTO> getAll() {
+    public ApiResponse getAll() {
         List<Student> students = studentService.getAll();
 
-        return students.stream().map(StudentMapper.INSTANCE::studentToStudentDTO).collect(Collectors.toList());
+        List<StudentDTO> studentsDTO = students.stream().map(StudentMapper.INSTANCE::studentToStudentDTO).collect(Collectors.toList());
 
+        rabbitTemplate.convertAndSend("", "q.student-get", studentsDTO);
+
+        return new ApiResponse("students sent");
     }
 
     @GetMapping("/details")
-    public List<Student> getStudentsDetails() {
-        return studentService.getStudentsDetails();
+    public ApiResponse getStudentsDetails() {
+        List<Student> studentsDetails = studentService.getStudentsDetails();
+
+        rabbitTemplate.convertAndSend("", "q.student-get-details", studentsDetails);
+
+        return new ApiResponse("students details sent");
     }
 
     @GetMapping("/{id}")
