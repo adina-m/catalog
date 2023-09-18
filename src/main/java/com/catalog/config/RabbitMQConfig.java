@@ -27,6 +27,16 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue getStudentsQueue() {
+        return new Queue("q.student-get");
+    }
+
+    @Bean
+    public Queue getStudentsDetailsQueue() {
+        return new Queue("q.student-get-details");
+    }
+
+    @Bean
     public Jackson2JsonMessageConverter converter() {
         return new Jackson2JsonMessageConverter();
     }
